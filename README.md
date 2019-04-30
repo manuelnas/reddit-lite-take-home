@@ -2,6 +2,12 @@
 
 Reddit lite take home assignment.
 
+## How to run and test
+
+- Before running or testing entering `npm install` into the command line is required. After this you have two options:
+	- Enter `npm start` into the command line to start an ad-hoc webserver that serves the application.
+	- Enter `npm test` into the command line to run all available tests. 
+
 ## Additional libraries
 
 The assignment requires React and Redux (and associated libraries), any other libraries I've used will be listed here (with the exception of anything added by `create-react-app` which is what I used to get me started):
@@ -14,8 +20,12 @@ The assignment requires React and Redux (and associated libraries), any other li
 	- `chai`: Has easy to understand assertions that work well with mocha. This makes the tests easier to understand, and allows me to focus more on creating actual functionality.
 	- `enzyme`: Adds functionality to make testing React components and their output easier. Also allows for manipulation, traversing and in some ways simulating the runtime.
 	- `sinon`: Adds standalone spies, stubs and mocks to the existing functionality of chai (through the use of `sinon-chai`).
-- 
 
-## Folder structure
 
-I decided to split the functionality (components and utilities) and the tests into separate trees, `src/*` for functionality and `test/*` for all tests. This 
+## File/Folder structure
+
+I chose to put every component in its own folder with an `index.js` file that exports the component in question (`export default`). This allows me to keep the Redux connect in a separate file, but in the same folder. The same goes for any other files that are associated to that component (such as `*.test.js` files).\
+
+An added benefit is that wrapping the component in a higher order component can be done in the `index.js` file. The same goes for exporting any utility or helper functions that are closely related to the component. Doing this gives a very clear and uncluttered view of what's exported while keeping the import of that component simple (just by 'importing' the folder).
+
+I found that applying this one small change makes things clearer and easier to find out what's going on with a certain component, even if you've never seen that specific component before.

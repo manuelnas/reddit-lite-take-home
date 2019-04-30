@@ -1,11 +1,15 @@
 import React from 'react';
+import DataContainer from 'components/DataContainer';
 
-function App() {
-	return (
-		<div className="App">
-			
-		</div>
-	);
+class App extends React.PureComponent {
+	render() {
+		return (
+			<DataContainer>
+					<div className="App">
+					</div>
+			</DataContainer>
+		);
+	}
 }
 
 export default App;

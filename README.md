@@ -20,7 +20,7 @@ The assignment requires React and Redux (and associated libraries), any other li
 	- `chai`: Has easy to understand assertions that work well with mocha. This makes the tests easier to understand, and allows me to focus more on creating actual functionality.
 	- `enzyme`: Adds functionality to make testing React components and their output easier. Also allows for manipulation, traversing and in some ways simulating the runtime.
 	- `sinon`: Adds standalone spies, stubs and mocks to the existing functionality of chai (through the use of `sinon-chai`).
-
+- `axios`: An easy to use Promise based HTTP client that I've used for years.
 
 ## File/Folder structure
 

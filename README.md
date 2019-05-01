@@ -21,6 +21,7 @@ The assignment requires React and Redux (and associated libraries), any other li
 	- `enzyme`: Adds functionality to make testing React components and their output easier. Also allows for manipulation, traversing and in some ways simulating the runtime.
 	- `sinon`: Adds standalone spies, stubs and mocks to the existing functionality of chai (through the use of `sinon-chai`).
 - `axios`: An easy to use Promise based HTTP client that I've used for years.
+	- `axios-mock-adapter`: Helps with mocking axios calls for the purpose of testing.
 
 ## File/Folder structure
 
@@ -29,3 +30,5 @@ I chose to put every component in its own folder with an `index.js` file that ex
 An added benefit is that wrapping the component in a higher order component can be done in the `index.js` file. The same goes for exporting any utility or helper functions that are closely related to the component. Doing this gives a very clear and uncluttered view of what's exported while keeping the import of that component simple (just by 'importing' the folder).
 
 I found that applying this one small change makes things clearer and easier to find out what's going on with a certain component, even if you've never seen that specific component before.
+I found that applying this one small change makes things clearer and it's easier to find out what's going on with a certain component, even if you've never seen that specific component before.
+

@@ -29,6 +29,5 @@ I chose to put every component in its own folder with an `index.js` file that ex
 
 An added benefit is that wrapping the component in a higher order component can be done in the `index.js` file. The same goes for exporting any utility or helper functions that are closely related to the component. Doing this gives a very clear and uncluttered view of what's exported while keeping the import of that component simple (just by 'importing' the folder).
 
-I found that applying this one small change makes things clearer and easier to find out what's going on with a certain component, even if you've never seen that specific component before.
 I found that applying this one small change makes things clearer and it's easier to find out what's going on with a certain component, even if you've never seen that specific component before.
 

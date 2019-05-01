@@ -4,7 +4,7 @@ import App from './App';
 
 describe('App', () => {
 	it('renders without crashing', () => {
-		const wrapper = shallow(<App />);
+		const wrapper = shallow(<App match={{ params: { subreddit: 'test' } }} />);
 		expect(wrapper.find('div.App')).to.have.lengthOf(1);
 	});
 });

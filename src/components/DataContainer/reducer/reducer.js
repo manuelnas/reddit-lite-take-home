@@ -18,10 +18,14 @@ export default (state, action) => {
 
 	switch(action.type) {
 		case constants.actions.getSubreddits.requested:
-		case constants.actions.getPosts.requested:
 			return state
 				.set('loading', true)
 				.set('error', null);
+		case constants.actions.getPosts.requested:
+			return state
+				.set('loading', true)
+				.set('error', null)
+				.set('subreddit', action.subreddit);
 		case constants.actions.getSubreddits.succeeded:
 			return state
 				.set('loading', false)

@@ -57,7 +57,7 @@ describe('DataContainer.actions', () => {
 			mock.onGet(`${actions.BASE_URL}${actions.POSTS_URL_BASE}${subredditName}${actions.POSTS_URL_SUFFIX}${postsCount}`).reply(200, fetchBody);
 
 			const expectedActions = [
-				{ type: constants.actions.getPosts.requested },
+				{ type: constants.actions.getPosts.requested, subreddit: subredditName },
 				{ type: constants.actions.getPosts.succeeded, data: fetchBody.data },
 			];
 

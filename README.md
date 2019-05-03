@@ -1,7 +1,5 @@
 # reddit-lite-take-home
 
-Reddit lite take home assignment.
-
 ## How to run and test
 
 - Before running or testing entering `npm install` into the command line is required. After this you have two options:
@@ -10,7 +8,7 @@ Reddit lite take home assignment.
 
 ## Additional libraries
 
-The assignment requires React and Redux (and associated libraries), any other libraries I've used will be listed here (with the exception of anything added by `create-react-app` which is what I used to get me started):
+The assignment requires React and Redux (and associated libraries), any other libraries I've used will be listed here (with the exception of anything added by `create-react-app` which is what I used to get started):
 
 - `lodash`: My absolute favorite utility library. Takes care of certain checks and has some performance and usability improvements for existing functions. It also adds additional utility functions.
 - `prop-types`: Helps to define the props used in any Component and checks types as well as whether all required props are defined.

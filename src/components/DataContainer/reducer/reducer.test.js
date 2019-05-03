@@ -14,13 +14,27 @@ describe('DataContainer.reducer', () => {
 		expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE);
 	});
 
-	it('should handle constants.actions.*.requested by setting loading to true and errors to null', () => {
+	it('should handle constants.actions.getSubreddits.requested by setting loading to true and errors to null', () => {
 		state = reducer(
 			INITIAL_STATE.set('error', { message: 'test error' }),
-			{ type: constants.actions.getPosts.requested }
+			{ type: constants.actions.getSubreddits.requested }
 		);
 
 		expect(state).to.deep.equal(INITIAL_STATE.set('loading', true));
+	});
+
+	it('should handle constants.actions.getPosts.requested by setting loading to true, errors to null and subreddits to the given value', () => {
+		const subreddit = 'name';
+
+		state = reducer(
+			INITIAL_STATE.set('error', { message: 'test error' }),
+			{ 
+				type: constants.actions.getPosts.requested,
+				subreddit,
+			}
+		);
+
+		expect(state).to.deep.equal(INITIAL_STATE.set('loading', true).set('subreddit', subreddit));
 	});
 	
 	const DEFAULT_LISTING_DATA = {

@@ -31,6 +31,7 @@ const POSTS_URL_SUFFIX = '/.json?count=';
 const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatch) => {
 	dispatch({
 		type: constants.actions.getPosts.requested,
+		subreddit,
 	});
 
 	return axios.get(`${BASE_URL}${POSTS_URL_BASE}${subreddit}${POSTS_URL_SUFFIX}${postsCount}`)

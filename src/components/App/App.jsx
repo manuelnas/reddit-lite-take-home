@@ -7,13 +7,23 @@ import Header from 'components/Header';
 import views from 'components/views';
 import { THEME } from 'theme/MuiTheme';
 
+const STYLE = {
+	container: {
+		position: 'absolute',
+		top: '64px',
+		left: '0',
+		right: '0',
+		padding: '10px',
+	},
+};
+
 const App = (props) => {
 	const { history } = props;
 	return (
 		<DataContainer>
 			<MuiThemeProvider theme={THEME}>
 				<Header history={history} />
-				<div className="App">
+				<div style={STYLE.container} className="App">
 					<Switch>
 						<Route path="/r/:subreddit" component={views.SubredditPosts} />
 						<Route path="/" component={views.Subreddits} />

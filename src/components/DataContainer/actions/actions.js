@@ -1,11 +1,11 @@
 import axios from 'axios';
-import constants from './constants';
+import constants from 'components/DataContainer/constants';
 
-export const BASE_URL = 'https://www.reddit.com';
+const BASE_URL = 'https://www.reddit.com';
 
-export const SUBREDDITS_URL = '/subreddits/popular/.json';
+const SUBREDDITS_URL = '/subreddits/popular/.json';
 
-export const actionGetSubreddits = () =>  async (dispatch) => {
+const actionGetSubreddits = () =>  async (dispatch) => {
 	dispatch({
 		type: constants.actions.getSubreddits.requested,
 	});
@@ -14,7 +14,7 @@ export const actionGetSubreddits = () =>  async (dispatch) => {
 		.then((response) => {
 			dispatch({
 				type: constants.actions.getSubreddits.succeeded,
-				data: response.data,
+				data: response.data.data,
 			});
 		})
 		.catch((error) => {
@@ -25,10 +25,10 @@ export const actionGetSubreddits = () =>  async (dispatch) => {
 		});
 };
 
-export const POSTS_URL_BASE = '/r/';
-export const POSTS_URL_SUFFIX = '/.json?count=';
+const POSTS_URL_BASE = '/r/';
+const POSTS_URL_SUFFIX = '/.json?count=';
 
-export const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatch) => {
+const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatch) => {
 	dispatch({
 		type: constants.actions.getPosts.requested,
 	});
@@ -37,7 +37,7 @@ export const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatc
 		.then((response) => {
 			dispatch({
 				type: constants.actions.getPosts.succeeded,
-				data: response.data,
+				data: response.data.data,
 			});
 		})
 		.catch((error) => {
@@ -46,4 +46,15 @@ export const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatc
 				error,
 			});
 		});
+};
+
+export default {
+	BASE_URL,
+
+	SUBREDDITS_URL,
+	actionGetSubreddits,
+
+	POSTS_URL_BASE,
+	POSTS_URL_SUFFIX,
+	actionGetSubredditPosts,
 };

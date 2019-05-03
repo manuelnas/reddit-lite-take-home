@@ -1,10 +1,10 @@
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter'
+import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import constants from 'components/DataContainer/constants';
 import { expect } from 'utils/testUtils';
-import * as actions from './actions';
-import constants from './constants';
+import actions from './index';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -18,14 +18,14 @@ describe('DataContainer.actions', () => {
 	});
 
 	describe('actionGetSubreddits', () => {
-		const fetchBody = { kind: 'Listing', data: [{ name: 'subreddit' }] };
+		const fetchBody = { kind: 'Listing', data: { children: [{ name: 'subreddit' }] } };
 
 		it('creates "constants.actions.getSubreddits.requested" before and "constants.actions.getSubreddits.succeeded" with the body data on success', () => {
 			mock.onGet(`${actions.BASE_URL}${actions.SUBREDDITS_URL}`).reply(200, fetchBody);
 
 			const expectedActions = [
 				{ type: constants.actions.getSubreddits.requested },
-				{ type: constants.actions.getSubreddits.succeeded, data: fetchBody },
+				{ type: constants.actions.getSubreddits.succeeded, data: fetchBody.data },
 			];
 
 			return store.dispatch(actions.actionGetSubreddits()).then(() => {
@@ -58,7 +58,7 @@ describe('DataContainer.actions', () => {
 
 			const expectedActions = [
 				{ type: constants.actions.getPosts.requested },
-				{ type: constants.actions.getPosts.succeeded, data: fetchBody },
+				{ type: constants.actions.getPosts.succeeded, data: fetchBody.data },
 			];
 
 			return store.dispatch(actions.actionGetSubredditPosts(subredditName, postsCount)).then(() => {

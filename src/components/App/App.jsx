@@ -33,7 +33,11 @@ const App = (props) => {
 };
 
 App.propTypes = {
+	error: PropTypes.shape({
+		message: PropTypes.string,
+	}),
 	history: PropTypes.object,
+	loading: PropTypes.bool,
 };
 
 export default App;

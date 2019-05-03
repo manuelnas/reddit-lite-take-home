@@ -16,6 +16,7 @@ class Header extends React.PureComponent {
 
 	static getDerivedStateFromProps() {
 		const URLParts = _.chain(window.location.pathname)
+			.lowerCase()
 			.trim('/')
 			.split('/')
 			.value();
@@ -23,7 +24,7 @@ class Header extends React.PureComponent {
 		if (URLParts.length === 2) {
 			return {
 				showBackButton: true,
-				title: window.location.pathname,
+				title: _.join(URLParts, '/'),
 			};
 		}
 

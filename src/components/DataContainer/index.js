@@ -1,4 +1,5 @@
+import actions from './actions';
 import DataContainer from './DataContainer';
 
-export * from './actions';
+export { actions };
 export default DataContainer;

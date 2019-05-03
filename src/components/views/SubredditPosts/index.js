@@ -1,3 +1,3 @@
-import SubredditPosts from './SubredditPosts';
+import SubredditPosts from './connect';
 
 export default SubredditPosts;

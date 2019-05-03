@@ -1,3 +1,3 @@
-import Subreddits from './Subreddits';
+import Subreddits from './connect';
 
 export default Subreddits;

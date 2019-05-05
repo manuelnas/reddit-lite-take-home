@@ -16,7 +16,6 @@ class Header extends React.PureComponent {
 
 	static getDerivedStateFromProps() {
 		const URLParts = _.chain(window.location.pathname)
-			.lowerCase()
 			.trim('/')
 			.split('/')
 			.value();

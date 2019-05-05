@@ -27,14 +27,24 @@ const actionGetSubreddits = () =>  async (dispatch) => {
 
 const POSTS_URL_BASE = '/r/';
 const POSTS_URL_SUFFIX = '/.json?count=';
+const POSTS_URL_AFTER = '&after=';
+const POSTS_URL_BEFORE = '&before=';
 
-const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatch) => {
+const actionGetSubredditPosts = (subreddit, postsCount, before, after) => async (dispatch) => {
 	dispatch({
 		type: constants.actions.getPosts.requested,
 		subreddit,
 	});
 
-	return axios.get(`${BASE_URL}${POSTS_URL_BASE}${subreddit}${POSTS_URL_SUFFIX}${postsCount}`)
+	let url = `${BASE_URL}${POSTS_URL_BASE}${subreddit}${POSTS_URL_SUFFIX}${postsCount}`;
+
+	if (before) {
+		url = `${url}${POSTS_URL_BEFORE}${before}`;
+	} else if (after) {
+		url = `${url}${POSTS_URL_AFTER}${after}`;
+	}
+
+	return axios.get(`${url}`)
 		.then((response) => {
 			dispatch({
 				type: constants.actions.getPosts.succeeded,
@@ -49,6 +59,12 @@ const actionGetSubredditPosts = (subreddit, postsCount) => async (dispatch) => {
 		});
 };
 
+const actionClearPosts = () => async (dispatch) =>{
+	dispatch({
+		type: constants.actions.clearPosts.requested,
+	});
+};
+
 export default {
 	BASE_URL,
 
@@ -58,4 +74,6 @@ export default {
 	POSTS_URL_BASE,
 	POSTS_URL_SUFFIX,
 	actionGetSubredditPosts,
+
+	actionClearPosts,
 };

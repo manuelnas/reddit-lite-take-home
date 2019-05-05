@@ -4,8 +4,6 @@ import constants from 'components/DataContainer/constants';
 export const INITIAL_STATE = new Map({
 	error: null,
 	loading: false,
-	pageSize: 25,
-	page: 0,
 	subreddits: new List(),
 	subreddit: null,
 	posts: new List(),
@@ -39,6 +37,9 @@ export default (state, action) => {
 			return state
 				.set('loading', false)
 				.set('error', Map(action.error));
+		case constants.actions.clearPosts.requested:
+			return state
+				.set('posts', new List());
 		default:
 			return state;
 	}

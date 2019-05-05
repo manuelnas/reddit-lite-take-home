@@ -10,5 +10,8 @@ export default {
 			succeeded: 'DATA_CONTAINER_GET_POSTS_SUCCEEDED',
 			failed: 'DATA_CONTAINER_GET_POSTS_FAILED',
 		},
+		clearPosts: {
+			requested: 'DATA_CONTAINER_CLEAR_POSTS_REQUESTED',
+		},
 	},
 };

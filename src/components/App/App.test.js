@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, expect } from 'utils/testUtils';
-import App from './index';
+import App from './App';
 
 describe('App', () => {
 	it('renders without crashing', () => {

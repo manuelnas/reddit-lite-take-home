@@ -34,8 +34,9 @@ class Header extends React.PureComponent {
 	}
 
 	handleBackButtonClick = () => {
-		const { history } = this.props;
+		const { history, onBackButtonClicked } = this.props;
 
+		onBackButtonClicked();
 		history.push('/');
 	};
 

@@ -23,7 +23,7 @@ const App = (props) => {
 
 	return (
 		<MuiThemeProvider theme={THEME}>
-			<Header history={history} />
+			<Header history={history} loading={loading} />
 			<div style={STYLE.container} className="App">
 				{!!error && <Error message={error.message} />}
 				{loading && <Loading />}

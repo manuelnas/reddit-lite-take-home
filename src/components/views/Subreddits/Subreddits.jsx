@@ -33,8 +33,26 @@ const STYLE = {
 	},
 };
 
+const INTERVAL_TIME = 60 * 1000;
+
 class Subreddits extends React.PureComponent {
 	componentDidMount() {
+		this.getData();
+		
+		// Set an interval to reload the subreddits every INTERVAL_TIME milliseconds.
+		this.interval = window.setInterval(() => {
+			this.getData();
+		}, INTERVAL_TIME);
+	}
+
+	componentWillUnmount() {
+		window.clearInterval(this.interval);
+	}
+
+	/**
+	 * Retrieve or reload the subreddits.
+	 */
+	getData() {
 		const { onGetSubreddits } = this.props;
 
 		onGetSubreddits();

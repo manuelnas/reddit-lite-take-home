@@ -55,6 +55,30 @@ class SubredditPosts extends React.PureComponent {
 		};
 	}
 
+	componentDidMount() {
+		this.getData();
+
+		// Set an interval to reload the subreddit's posts every INTERVAL_TIME milliseconds.
+		this.interval = window.setInterval(() => {
+			this.getData();
+		}, INTERVAL_TIME);
+	}
+
+	componentWillUnmount() {
+		window.clearInterval(this.interval);
+	}
+
+	/**
+	 * Retrieve or reload the subreddits.
+	 */
+	getData() {
+		const { onGetPosts } = this.props;
+		const { postCount, subreddit } = this.state;
+
+		// subreddit, postsCount, page, before, after
+		onGetPosts(subreddit, postCount);
+	}
+
 	render() {
 		const { posts } = this.props;
 

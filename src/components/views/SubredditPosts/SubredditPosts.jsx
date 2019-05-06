@@ -91,8 +91,6 @@ class SubredditPosts extends React.PureComponent {
 		}
 
 		onGetPosts(subreddit, postCount, afterCode);
-
-		console.log(posts, afterCode, page);
 	};
 
 	handlePageChange = (newPage) => {

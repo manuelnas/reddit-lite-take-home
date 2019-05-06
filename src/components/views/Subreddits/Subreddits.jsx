@@ -61,8 +61,6 @@ class Subreddits extends React.PureComponent {
 	render() {
 		const { subreddits } = this.props;
 
-		console.log(subreddits);
-
 		return (
 			<div>
 				{_.map(subreddits, ({ data }) => (

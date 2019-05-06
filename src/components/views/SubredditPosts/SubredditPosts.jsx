@@ -88,8 +88,6 @@ class SubredditPosts extends React.PureComponent {
 		if (!afterCode && page !== 0) {
 			afterCode = posts[posts.length - 1].data.name;
 			after[page] = afterCode;
-		} else {
-			afterCode = afterCode;
 		}
 
 		onGetPosts(subreddit, postCount, afterCode);

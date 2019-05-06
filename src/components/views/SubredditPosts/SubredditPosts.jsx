@@ -79,15 +79,29 @@ class SubredditPosts extends React.PureComponent {
 	/**
 	 * Retrieve or reload the subreddits.
 	 */
-	getData() {
-		const { onGetPosts } = this.props;
-		const { postCount, subreddit } = this.state;
+	getData = () => {
+		const { onGetPosts, posts } = this.props;
+		const { after, page, postCount, subreddit } = this.state;
 
-		// subreddit, postsCount, page, before, after
-		onGetPosts(subreddit, postCount);
-	}
+		let afterCode = after[page];
 
-	getPagingPanel() {
+		if (!afterCode && page !== 0) {
+			afterCode = posts[posts.length - 1].data.name;
+			after[page] = afterCode;
+		} else {
+			afterCode = afterCode;
+		}
+
+		onGetPosts(subreddit, postCount, afterCode);
+
+		console.log(posts, afterCode, page);
+	};
+
+	handlePageChange = (newPage) => {
+		this.setState({ page: newPage }, () => this.getData());
+	};
+
+	getPagingPanel = () => {
 		const { posts } = this.props;
 		const { after, page, postCount } = this.state;
 
@@ -95,16 +109,17 @@ class SubredditPosts extends React.PureComponent {
 			<PagingPanel
 				hasMore={posts.length >= postCount}
 				maxPages={after.length + 1}
+				onPageChange={this.handlePageChange}
 				page={page}
 			/>
 		);
-	}
+	};
 
-	goToPage(url, event) {
+	goToPage = (url, event) => {
 		window.location.href = url;
 		event.stopPropagation();
 		return false;
-	}
+	};
 
 	render() {
 		const { posts } = this.props;
@@ -118,6 +133,7 @@ class SubredditPosts extends React.PureComponent {
 
 					return (
 						<Paper
+							key={data.name}
 							onClick={(event) => this.goToPage(data.url, event)}
 							style={STYLE.paperContainer}
 						>

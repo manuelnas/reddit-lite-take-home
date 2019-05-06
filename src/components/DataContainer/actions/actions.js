@@ -28,9 +28,8 @@ const actionGetSubreddits = () =>  async (dispatch) => {
 const POSTS_URL_BASE = '/r/';
 const POSTS_URL_SUFFIX = '/.json?count=';
 const POSTS_URL_AFTER = '&after=';
-const POSTS_URL_BEFORE = '&before=';
 
-const actionGetSubredditPosts = (subreddit, postsCount, before, after) => async (dispatch) => {
+const actionGetSubredditPosts = (subreddit, postsCount, after) => async (dispatch) => {
 	dispatch({
 		type: constants.actions.getPosts.requested,
 		subreddit,
@@ -38,9 +37,7 @@ const actionGetSubredditPosts = (subreddit, postsCount, before, after) => async 
 
 	let url = `${BASE_URL}${POSTS_URL_BASE}${subreddit}${POSTS_URL_SUFFIX}${postsCount}`;
 
-	if (before) {
-		url = `${url}${POSTS_URL_BEFORE}${before}`;
-	} else if (after) {
+	if (after) {
 		url = `${url}${POSTS_URL_AFTER}${after}`;
 	}
 

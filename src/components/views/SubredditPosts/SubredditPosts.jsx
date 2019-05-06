@@ -14,6 +14,7 @@ const STYLE = {
 	paperContainer: {
 		padding: '10px',
 		margin: '10px',
+		cursor: 'pointer',
 	},
 	subText: {
 		color: 'black',
@@ -86,75 +87,87 @@ class SubredditPosts extends React.PureComponent {
 		onGetPosts(subreddit, postCount);
 	}
 
+	getPagingPanel() {
+		const { posts } = this.props;
+		const { after, page, postCount } = this.state;
+
+		return (
+			<PagingPanel
+				hasMore={posts.length >= postCount}
+				maxPages={after.length + 1}
+				page={page}
+			/>
+		);
+	}
+
+	goToPage(url, event) {
+		window.location.href = url;
+		event.stopPropagation();
+		return false;
+	}
+
 	render() {
 		const { posts } = this.props;
 		const { scrollY } = this.state;
 
 		return (
 			<React.Fragment>
-				<PagingPanel />
+				{this.getPagingPanel()}
 				{_.map(posts, ({ data }) => {
 					const posted = moment(data.created_utc * 1000);
 
 					return (
-						<a
-							key={data.name}
-							style={STYLE.link}
-							href={data.url}
+						<Paper
+							onClick={(event) => this.goToPage(data.url, event)}
+							style={STYLE.paperContainer}
 						>
-							<Paper
-								style={STYLE.paperContainer}
-							>
-								{data.thumbnail && data.thumbnail.length > 0 && (
-									<img
-										alt="post thumbnail"
-										src={data.thumbnail}
-										style={STYLE.thumbnail}
-									/>
-								)}
-								<div style={STYLE.textContainer}>
-									<p style={STYLE.titleText}>{data.title}</p>
-									<p style={STYLE.subText}>
+							{data.thumbnail && data.thumbnail.length > 0 && (
+								<img
+									alt="post thumbnail"
+									src={data.thumbnail}
+									style={STYLE.thumbnail}
+								/>
+							)}
+							<div style={STYLE.textContainer}>
+								<p style={STYLE.titleText}>{data.title}</p>
+								<p style={STYLE.subText}>
+									<span
+										onClick={(event) => this.goToPage(
+											`https://www.reddit.com/r/${data.subreddit}/comments/${data.id}/`,
+											event,
+										)}
+										style={{ ...STYLE.subTextSpan, ...STYLE.link }}
+									>
+										Comments
+									</span>
+									<span
+										style={STYLE.subTextSpan}
+									>
+										Author:&nbsp;
 										<span
-											onClick={(event) => {
-												window.location.href = `https://www.reddit.com/r/${data.subreddit}/comments/${data.id}/`;
-												event.stopPropagation();
-												return false;
-											}}
-											style={{ ...STYLE.subTextSpan, ...STYLE.link }}
+											onClick={(event) => this.goToPage(
+												`https://www.reddit.com/user/${data.author}/`,
+												event,
+											)}
+											style={STYLE.link}
 										>
-											Comments
+											u/{data.author}
 										</span>
-										<span
-											style={STYLE.subTextSpan}
+									</span>
+									<span style={STYLE.subTextSpan}>
+										Posted:&nbsp;
+										<Tooltip
+											title={posted.format('llll')}
 										>
-											Author:&nbsp;
-											<span
-												onClick={(event) => {
-													window.location.href = `https://www.reddit.com/user/${data.author}/`;
-													event.stopPropagation();
-													return false;
-												}}
-												style={STYLE.link}
-											>
-												u/{data.author}
-											</span>
-										</span>
-										<span style={STYLE.subTextSpan}>
-											Posted:&nbsp;
-											<Tooltip
-												title={posted.format('llll')}
-											>
-												<span>{moment.duration(posted.diff()).humanize(true)}</span>
-											</Tooltip>
-										</span>
-									</p>
-								</div>
-							</Paper>
-						</a>
+											<span>{moment.duration(posted.diff()).humanize(true)}</span>
+										</Tooltip>
+									</span>
+								</p>
+							</div>
+						</Paper>
 					);
 				})}
-				<PagingPanel />
+				{this.getPagingPanel()}
 				<script>window.scrollTo(0, {scrollY});</script>
 			</React.Fragment>
 		);

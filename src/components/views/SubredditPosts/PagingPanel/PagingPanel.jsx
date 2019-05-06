@@ -27,12 +27,18 @@ const STYLE = {
 };
 
 class PagingPanel extends React.PureComponent {
+	/**
+	 * Set the page (by calling the callback).
+	 */
 	setNewPage = (pageNr) => {
 		const { onPageChange } = this.props;
 
 		onPageChange(pageNr);
 	};
 
+	/**
+	 * Get the available pages
+	 */
 	getPages = () => {
 		const { hasMore, maxPages, page } = this.props;
 		let elements = [];

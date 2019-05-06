@@ -33,6 +33,9 @@ class Header extends React.PureComponent {
 		};
 	}
 
+	/**
+	 * Click handler that is triggered when the back button in the header is clicked.
+	 */
 	handleBackButtonClick = () => {
 		const { history, onBackButtonClicked } = this.props;
 

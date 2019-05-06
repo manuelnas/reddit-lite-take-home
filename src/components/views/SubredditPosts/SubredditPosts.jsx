@@ -93,10 +93,18 @@ class SubredditPosts extends React.PureComponent {
 		onGetPosts(subreddit, postCount, afterCode);
 	};
 
+	/**
+	 * Callback for when the page gets changed in the PagingPanel.
+	 *
+	 * @param {int} newPage - The page that should be shown next.
+	 */
 	handlePageChange = (newPage) => {
 		this.setState({ page: newPage }, () => this.getData());
 	};
 
+	/**
+	 * Renders a paging panel, simplifies this component's render() function.
+	 */
 	getPagingPanel = () => {
 		const { posts } = this.props;
 		const { after, page, postCount } = this.state;
@@ -111,6 +119,12 @@ class SubredditPosts extends React.PureComponent {
 		);
 	};
 
+	/**
+	 * Opens the given url stopping any propagation.
+	 *
+	 * @param {string} url - The url to navigate to.
+	 * @param {Event} event - The React event that should not propagate.
+	 */
 	goToPage = (url, event) => {
 		window.location.href = url;
 		event.stopPropagation();

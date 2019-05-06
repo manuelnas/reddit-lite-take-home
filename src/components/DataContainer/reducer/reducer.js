@@ -9,6 +9,12 @@ export const INITIAL_STATE = new Map({
 	posts: new List(),
 });
 
+/**
+ * Initiates and updates the state based on the action.
+ *
+ * @param {Object} state - The state that should be updated.
+ * @param {Object} action - The action describing what should be updated (and how).
+ */
 export default (state, action) => {
 	if (state === undefined) {
 		return INITIAL_STATE;

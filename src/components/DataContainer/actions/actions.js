@@ -5,6 +5,9 @@ const BASE_URL = 'https://www.reddit.com';
 
 const SUBREDDITS_URL = '/subreddits/popular/.json';
 
+/**
+ * Get the top 25 subreddits in json format.
+ */
 const actionGetSubreddits = () =>  async (dispatch) => {
 	dispatch({
 		type: constants.actions.getSubreddits.requested,
@@ -29,6 +32,13 @@ const POSTS_URL_BASE = '/r/';
 const POSTS_URL_SUFFIX = '/.json?count=';
 const POSTS_URL_AFTER = '&after=';
 
+/**
+ * Get the given number of posts from the given subreddit starting after the given 'after' post.
+ *
+ * @param {string} subreddit - The subreddit who's posts should be retrieved.
+ * @param {int} postsCount - The number of posts that should be retrieved.
+ * @param {string} after - The 'name' of the last post before the new page (this is how reddit pages).
+ */
 const actionGetSubredditPosts = (subreddit, postsCount, after) => async (dispatch) => {
 	dispatch({
 		type: constants.actions.getPosts.requested,
@@ -56,6 +66,9 @@ const actionGetSubredditPosts = (subreddit, postsCount, after) => async (dispatc
 		});
 };
 
+/**
+ * Clear the currently saved posts.
+ */
 const actionClearPosts = () => async (dispatch) =>{
 	dispatch({
 		type: constants.actions.clearPosts.requested,

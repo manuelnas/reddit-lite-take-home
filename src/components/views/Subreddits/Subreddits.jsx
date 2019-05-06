@@ -1,5 +1,6 @@
 import { Paper } from '@material-ui/core';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { COLORS } from 'theme/MuiTheme';
@@ -70,6 +71,20 @@ class Subreddits extends React.PureComponent {
 			</div>
 		);
 	}
+};
+
+Subreddits.propTypes = {
+	subreddits: PropTypes.arrayOf(PropTypes.shape({
+		data: PropTypes.shape({
+			community_icon: PropTypes.string,
+			display_name_prefixed: PropTypes.string.isRequired,
+			link: PropTypes.string,
+			name: PropTypes.string,
+			public_description: PropTypes.string,
+			to: PropTypes.string,
+		}),
+	})).isRequired,
+	onGetSubreddits: PropTypes.func.isRequired,
 };
 
 export default Subreddits;

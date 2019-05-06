@@ -96,7 +96,18 @@ SubredditPosts.propTypes = {
 			subreddit: PropTypes.string,
 		}).isRequired,
 	}).isRequired,
-	posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+	posts: PropTypes.arrayOf(PropTypes.shape({
+		data: PropTypes.shape({
+			author: PropTypes.string.isRequired,
+			created_utc: PropTypes.number.isRequired,
+			id: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+			thumbnail: PropTypes.string,
+			subreddit: PropTypes.string.isRequired,
+			title: PropTypes.string.isRequired,
+			url: PropTypes.string.isRequired,
+		}),
+	})).isRequired,
 };
 
 export default SubredditPosts;

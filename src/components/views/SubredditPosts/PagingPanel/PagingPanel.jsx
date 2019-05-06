@@ -6,9 +6,6 @@ const STYLE = {
 		height: '40px',
 		textAlign: 'center',
 	},
-	spanContainer: {
-		
-	},
 };
 
 class PagingPanel extends React.PureComponent {

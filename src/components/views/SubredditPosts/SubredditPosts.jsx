@@ -4,6 +4,7 @@ import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { COLORS } from 'theme/MuiTheme';
+import PagingPanel from './PagingPanel';
 
 const STYLE = {
 	link: {
@@ -91,6 +92,7 @@ class SubredditPosts extends React.PureComponent {
 
 		return (
 			<React.Fragment>
+				<PagingPanel />
 				{_.map(posts, ({ data }) => {
 					const posted = moment(data.created_utc * 1000);
 
@@ -152,6 +154,7 @@ class SubredditPosts extends React.PureComponent {
 						</a>
 					);
 				})}
+				<PagingPanel />
 				<script>window.scrollTo(0, {scrollY});</script>
 			</React.Fragment>
 		);

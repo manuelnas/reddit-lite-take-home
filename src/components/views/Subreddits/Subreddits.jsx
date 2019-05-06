@@ -74,7 +74,7 @@ class Subreddits extends React.PureComponent {
 						<Paper style={STYLE.paperContainer}>
 							{data.community_icon && data.community_icon.length > 0 && (
 								<img
-									alt={`${data.display_name} community icon`}
+									alt={`${data.display_name_prefixed} subreddit icon`}
 									src={data.community_icon}
 									style={STYLE.icon}
 								/>

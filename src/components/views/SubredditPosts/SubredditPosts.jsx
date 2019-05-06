@@ -1,56 +1,62 @@
-import { Paper } from '@material-ui/core';
+import { Paper, Tooltip } from '@material-ui/core';
 import _ from 'lodash';
+import moment from 'moment';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { COLORS } from 'theme/MuiTheme';
 
 const STYLE = {
-	descriptionText: {
-		color: 'black',
-		margin: '0',
-	},
-	thumbnail: {
-		height: '100px',
-		marginRight: '15px',
-		width: '100px',
-	},
 	link: {
 		color: COLORS.PRIMARY[400],
 		textDecoration: 'none',
 	},
-	titleText: {
-		margin: '0 0 5px 0',
-	},
 	paperContainer: {
 		padding: '10px',
 		margin: '10px',
+	},
+	subText: {
+		color: 'black',
+		fontSize: '12px',
+		margin: '0',
+	},
+	subTextSpan: {
+		display: 'inline-block',
+		marginRight: '10px',
+		padding: '5px',
+		lineHeight: '30px',
 	},
 	textContainer: {
 		display: 'inline-block',
 		maxWidth: 'calc(100% - 115px)',
 		verticalAlign: 'top',
 	},
+	thumbnail: {
+		maxHeight: '100px',
+		marginRight: '15px',
+		maxWidth: '100px',
+	},
+	titleText: {
+		margin: '0 0 5px 0',
+	},
 };
+
+const INTERVAL_TIME = 60 * 1000;
 
 class SubredditPosts extends React.PureComponent {
 	state = {
+		after: [],
+		page: 0,
 		postCount: 25,
+		scrollY: 0,
 		subreddit: null,
 	};
-
-	componentDidMount() {
-		const { onGetPosts } = this.props;
-		const { postCount, subreddit } = this.state;
-
-		onGetPosts(subreddit, postCount);
-	}
 
 	static getDerivedStateFromProps(props) {
 		const { match } = props;
 		const { subreddit } = match.params;
 
 		return {
+			scrollY: document.documentElement.scrollTop,
 			subreddit,
 		};
 	}
@@ -81,35 +87,73 @@ class SubredditPosts extends React.PureComponent {
 
 	render() {
 		const { posts } = this.props;
-
-		console.log(posts);
+		const { scrollY } = this.state;
 
 		return (
-			<div>
-				{_.map(posts, ({ data }) => (
-					<Link
-						key={data.name}
-						style={STYLE.link}
-						to={`https://www.reddit.com${data.permalink}`}
-					>
-						<Paper
-							style={STYLE.paperContainer}
+			<React.Fragment>
+				{_.map(posts, ({ data }) => {
+					const posted = moment(data.created_utc * 1000);
+
+					return (
+						<a
+							key={data.name}
+							style={STYLE.link}
+							href={data.url}
 						>
-							{data.thumbnail && data.thumbnail.length > 0 && (
-								<img
-									alt="post thumbnail"
-									src={data.thumbnail}
-									style={STYLE.thumbnail}
-								/>
-							)}
-							<div style={STYLE.textContainer}>
-								<p style={STYLE.titleText}>{data.title}</p>
-								<p style={STYLE.descriptionText}></p>
-							</div>
-						</Paper>
-					</Link>
-				))}
-			</div>
+							<Paper
+								style={STYLE.paperContainer}
+							>
+								{data.thumbnail && data.thumbnail.length > 0 && (
+									<img
+										alt="post thumbnail"
+										src={data.thumbnail}
+										style={STYLE.thumbnail}
+									/>
+								)}
+								<div style={STYLE.textContainer}>
+									<p style={STYLE.titleText}>{data.title}</p>
+									<p style={STYLE.subText}>
+										<span
+											onClick={(event) => {
+												window.location.href = `https://www.reddit.com/r/${data.subreddit}/comments/${data.id}/`;
+												event.stopPropagation();
+												return false;
+											}}
+											style={{ ...STYLE.subTextSpan, ...STYLE.link }}
+										>
+											Comments
+										</span>
+										<span
+											style={STYLE.subTextSpan}
+										>
+											Author:&nbsp;
+											<span
+												onClick={(event) => {
+													window.location.href = `https://www.reddit.com/user/${data.author}/`;
+													event.stopPropagation();
+													return false;
+												}}
+												style={STYLE.link}
+											>
+												u/{data.author}
+											</span>
+										</span>
+										<span style={STYLE.subTextSpan}>
+											Posted:&nbsp;
+											<Tooltip
+												title={posted.format('llll')}
+											>
+												<span>{moment.duration(posted.diff()).humanize(true)}</span>
+											</Tooltip>
+										</span>
+									</p>
+								</div>
+							</Paper>
+						</a>
+					);
+				})}
+				<script>window.scrollTo(0, {scrollY});</script>
+			</React.Fragment>
 		);
 	}
 };
